@@ -7,9 +7,29 @@
     <script>
         document.addEventListener("DOMContentLoaded", ()=>{})
 
+        function VerificarPalindromo(){
+            let conteudo = document.getElementById("input").value
+            let removedor = /[\W_]/g
+            let resultado = ""
+
+            conteudo = conteudo.toLowerCase().replace(removedor, "")
+
+            for (let i = 0; i < conteudo.length / 2; i++) {
+                if (conteudo[i] !== conteudo[conteudo.length - 1 - i]) {
+                    resultado = "Não é palíndromo"
+                }
+            }
+            if (resultado == "") {
+                resultado = "É palíndromo"
+            }
+
+            alert(resultado)
+        }
     </script>
 </head>
 <body>
-    
+    <p>Verificar Palíndromo</p>
+    <input id="input" type="text">
+    <button onclick="VerificarPalindromo()">Verificar</button>
 </body>
 </html>
