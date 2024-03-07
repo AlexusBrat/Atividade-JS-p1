@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 2</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{})
+        function Relogio(){
+            let data = new Date()
+            let hora = data.getHours()
+            let minuto = data.getMinutes()
+            let segundo = data.getSeconds()
+            
+            // Operadores Ternários para concatenar números a baixo de 10. Ex: 01, 02, 03 ... 09.
+            // condição ? true : false
+            hora < 10 ? hora = `0${data.getHours()}` : hora = data.getHours()
+            minuto < 10 ? minuto `0${data.getMinutes()}` : minuto = data.getMinutes() 
+            segundo < 10 ? segundo = `0${data.getSeconds()}` : segundo = data.getSeconds()
+            
+            document.getElementById("relogio").innerHTML = `${hora}:${minuto}:${segundo}`
+        }
+
+        
+        setInterval(() => {Relogio()}, 1000)
+        
+    </script>
+
+</head>
+<body>
+    <h1 id="relogio">__:__:__</h1>
+
+</body>
+</html>
