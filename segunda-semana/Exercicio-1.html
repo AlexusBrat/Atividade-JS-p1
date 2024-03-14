@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 1</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            Exibir()
+        })
+        var vetorNum = new Array()
+
+        function Inserir(){
+            var num = document.getElementById("conteudo").value
+            if(isNaN(num) == false){
+                vetorNum.push(num)
+                console.log(vetorNum)
+                document.getElementById("retorno").innerHTML = "Valor inserido com sucesso."
+                Exibir()
+
+            }
+            else{
+                document.getElementById("retorno").innerHTML = "Valor não é um número."
+            }
+        }
+        function Exibir(){
+            vetorNum = vetorNum.sort()
+            ApagarLinha()
+            for(var i = 0; i < vetorNum.length; i++){
+                var li = document.createElement("li")
+                li.setAttribute("id", "idLista")
+                li.textContent = vetorNum[i]
+                document.getElementById("listaVetor").appendChild(li)
+                // ou pode usar document.body.appendChild() para adicionar
+            }
+        }
+        function ApagarLinha(){
+            while (listaVetor.firstChild) {
+                listaVetor.removeChild(listaVetor.firstChild);
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Exercício</h1>
+    <p>Implemente um script com um array cujos valores sejam adicionados dinamicamente pelo usuário utilizando-se formulário. A cada nova inserção exiba todos os dados cadastrados em ordem alfabética em uma lista ordenada do html.</p>
+    <label for="">Informe um valor: </label>
+    <input id="conteudo" type="text" placeholder="Digite aqui...">
+    <button onclick="Inserir()">Inserir</button>
+    <button onclick="ApagarLinha()">Apagar</button>
+    <br>
+    <p id="retorno"></p>
+    <div class="exibirItens">
+        <ul id="listaVetor">
+
+        </ul>
+    </div>
+
+</body>
+</html>
