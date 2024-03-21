@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 1</title>
+
+    <script>
+        addEventListener("DOMContentLoaded",()=>{})
+
+        function Pessoa(){
+            var nome
+            var email
+            var data_nasc
+            var telefone
+            var celular
+            var curso_area
+            var matricula
+
+            this.setNome = function (nome){
+                this.nome = nome
+            }
+            this.getNome = function (){
+                return this.nome
+            }
+            this.setEmail = function(email){
+                this.email = email
+            }
+            this.getEmail = function(){
+                return this.email
+            }
+            this.setData = function(data){
+                this.data = data
+            }
+            this.getData = function(){
+                return this.data
+            }
+            this.setTelefone = function(telefone){
+                this.telefone = telefone
+            }
+            this.getTelefone = function(){
+                return this.telefone
+            }
+            this.setCelular = function(celular){
+                this.celular = celular
+            }
+            this.getCelular = function(){
+                return this.celular
+            }
+            this.setCurso = function(curso){
+                this.curso = curso
+            }
+            this.getCurso = function(){
+                return this.curso
+            }
+            this.setArea_Atuacao = function(area_atuacao){
+                this.area_atuacao = area_atuacao
+            }
+            this.getArea_Atuacao = function(){
+                return this.area_atuacao
+            }
+            this.setMatricula = function(matricula){
+                this.matricula = matricula
+            }
+            this.getMatricula = function(){
+                return this.matricula
+            }
+
+        }
+
+        function Aluno(){
+            Pessoa.call(this)
+            var curso
+
+            this.setCurso = function(curso){
+                this.curso = curso
+            }
+            this.getCurso = function(){
+                return this.curso
+            }
+
+            function CreateAluno(){
+
+            }
+
+        }
+
+        function Professor(){
+            Pessoa.call(this)
+            var area_atuacao
+            var lattes
+
+            this.setArea_atuacao = function(areaAtuacao){
+                this.area_atuacao = areaAtuacao
+            }
+            this.getArea_atuacao = function(){
+                return this.area_atuacao
+            }
+            this.setLattes = function(lattes){
+                this.lattes = lattes
+            }
+            this.getLattes = function(){
+                return this.lattes
+            }
+
+            function CreateProfessor(){
+
+            }
+        }
+
+        function Cadastrar(){
+            console.log("Função Cadastrar")
+            var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
+            console.log(opcao)
+            console.log(opcao["id"])
+
+
+            if(opcao["id"] == "aluno"){
+                var aluno = new Aluno()
+                document.getElementById("output").innerHTML = "Cadastro de Aluno feito!"
+            }
+            else if(opcao["id"] == "professor"){
+                var professor = new Professor()
+                document.getElementById("output").innerHTML = "Cadastro de Professor feito!"
+            }
+            else{
+                document.getElementById("output").innerHTML = "Aviso: nenhuma das opções selecionadas (Aluno/Professor)"
+            }
+
+        }
+
+
+        addEventListener("change", function(){
+            var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
+            console.log(opcao["id"])
+            var label = document.createElement("label")
+            var input = document.createElement("input")
+            label.setAttribute("id", "elemento_radio")
+            input.setAttribute("id", "elemento_radio")
+
+            if(opcao["id"] == "aluno"){
+                
+                
+                // Exibir (matricula, curso)
+                label.textContent = `Curso`
+                input.textContent = `<input id="curso" type="text" >`
+                document.getElementById("cadastro_radio").appendChild(label)
+                // label.textContent = `<label id="label_matricula" for="" >Matrícula</label>`
+                // input.textContent = `<input id="matricula" type="text" >`
+                // document.getElementById("cadastro_radio").appendChild(label, input)
+
+                // Ocultar (area, lattes)
+            
+            }
+            else if(opcao["id"] == "professor"){
+                // Exibir (area, matricula lattes)
+
+                // Ocultar (curso)
+            }
+            
+        })
+    </script>
+</head>
+<body>
+
+    <h1>Exercício 1 CRUD POO</h1>
+    <p><a href="Quarta-Semana.html">Voltar</a></p>
+    <form action="Quarta-Semana Exercicio-1 crud POO.html" method="post">
+        <label for="">Nome: </label>
+        <input id="nome" type="text">
+        <label for="">Email: </label>
+        <input id="email" type="text">
+        <label for="">Data de Nascimento: </label>
+        <input id="data" type="date">
+        <label for="">Telefone Fixo</label>
+        <input id="telefone" type="text">
+        <label for="">Telefone Celular</label>
+        <input id="celular" type="text">
+        <br>
+        <input id="professor" type="radio" name="tipo" value="professor">
+        <label for="">Professor</label>
+        <input id="aluno" type="radio" name="tipo" value="aluno">
+        <label for="">Aluno</label>
+
+        <div class="cadastro_radio">
+            <!-- <label id="label_curso" for="" >Curso</label>
+            <input id="curso" type="text" >
+            <label id="label_area" for="" >Area</label>
+            <input id="area" type="text" >
+            <label id="label_matricula" for="" >Matrícula</label>
+            <input id="matricula" type="text" >
+            <label id="label_lattes" for="" >Lattes</label>
+            <input id="lattes" type="text" >
+            <br> -->
+            
+        </div>
+        <br><br>
+        
+    </form>
+    <button onclick="Cadastrar()">Enviar</button>
+    <button>Redefinir</button>
+    <p id="output"></p>
+
+    
+</body>
+</html>
