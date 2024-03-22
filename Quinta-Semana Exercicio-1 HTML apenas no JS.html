@@ -6,52 +6,264 @@
     <title>Exercicio 1</title>
 
     <script>
+        function addHomem(){
+            var contador_m = parseInt(document.getElementById("contador_m").textContent)
+            console.log(contador_m)
+            contador_m++
+            document.getElementById("contador_m").innerHTML = contador_m
+        
+        }
+
+        function removeHomem(){
+            var contador_m = parseInt(document.getElementById("contador_m").textContent)
+            contador_m--
+            document.getElementById("contador_m").innerHTML = contador_m
+        }
+
+        function addMulher(){
+            var contador_f = parseInt(document.getElementById("contador_f").textContent)
+            contador_f++
+            document.getElementById("contador_f").innerHTML = contador_f
+            
+        }
+
+        function removeMulher(){
+            var contador_f = parseInt(document.getElementById("contador_f").textContent)
+            contador_f--
+            document.getElementById("contador_f").innerHTML = contador_f
+        }
+
+        function Reset(){
+            alert("Reset selecionado")
+            document.getElementById("contador_m").innerHTML = "0"
+            document.getElementById("contador_f").innerHTML = "0"
+
+
+        }
+
+        function Total(){
+            var contador_m = parseInt(document.getElementById("contador_m").textContent)
+            var contador_f = parseInt(document.getElementById("contador_f").textContent)
+            console.log(contador_m + "\t" + contador_f)
+            var resultado = contador_m + contador_f
+            document.getElementById("contador").innerHTML = resultado
+        }
+
+        document.addEventListener("click", ()=>{
+            Total()
+        })
+        
+
         document.addEventListener("DOMContentLoaded", ()=>{
-            // Criação dos elementos ---------------------------------------------------------------
+            
+            // Criação dos elementos -----------------------------------------------------------------
+
+            // div principal (div_contador)
             var div_contador = document.getElementById("div_contador")
 
+            // botão reset
+            var btn_reset = document.createElement("button")
+            var img_reset = document.createElement("img")
+            img_reset.src = "/image/btn-reset.png"
+            btn_reset.id = "btn_reset"
+            btn_reset.setAttribute("onclick", "Reset()")
+            div_contador.appendChild(btn_reset)
+            btn_reset.appendChild(img_reset)
+
+            // H1 total
             var titulo = document.createElement("h1")
             titulo.textContent = "Total"
             div_contador.appendChild(titulo)
 
-            var btn_reset = document.createElement("button")
-            btn_reset.src = "/image/reset-btn"
+            // h3 contador
+            var contador = document.createElement("h3")
+            contador.textContent = "0"
+            contador.id = "contador"
+            div_contador.appendChild(contador)
+
+            // div divisão contador (div_contador/div_divisao_contador)
+            var div_divisao_contador = document.createElement("div")
+            div_contador.appendChild(div_divisao_contador)
+
+            // div homem (div_contador/div_divisao_contador/div_homem)
+            var div_homem = document.createElement("div")
+            div_divisao_contador.appendChild(div_homem)
+
+            // img Homem
+            var img_m = document.createElement("img")
+            img_m.src = "/image/m-icon.png"
+            div_homem.appendChild(img_m)
+
+            // div m_btn (div_contador/div_divisao_contador/div_homem/div_m_btn)
+            var m_btn = document.createElement("div")
+            div_homem.appendChild(m_btn)
+
+            // add btn homem
+            var add_btn_m = document.createElement("button")
+            var img_add_m = document.createElement("img")
+            img_add_m.src = "/image/btn-plus.png"
+            add_btn_m.id = "add_btn_m"
+            add_btn_m.setAttribute("onclick", "addHomem()")
+            m_btn.appendChild(add_btn_m)
+            add_btn_m.appendChild(img_add_m)
+
+
+            // remove btn homem
+            var remove_btn_m = document.createElement("button")
+            var img_remove_m = document.createElement("img")
+            remove_btn_m.id = "remove_btn_m"
+            img_remove_m.src = "/image/btn-minus.png"
+            remove_btn_m.setAttribute("onclick", "removeHomem()")
+            m_btn.appendChild(remove_btn_m)
+            remove_btn_m.appendChild(img_remove_m)
+
+            // titulo_m
+            var titulo_m = document.createElement("h3")
+            titulo_m.textContent = "Homem"
+            div_homem.appendChild(titulo_m)
+
+            // contador homem
+            var contador_m = document.createElement("p")
+            contador_m.textContent = "0"
+            contador_m.id = "contador_m"
+            div_homem.appendChild(contador_m)
 
             
+            // div mulher (div_contador/div_divisao_contador/div_mulher)
+            var div_mulher = document.createElement("div")
+            div_divisao_contador.appendChild(div_mulher)
+
+            // img Mulher
+            var img_f = document.createElement("img")
+            img_f.src = "/image/f-icon.png"
+            div_mulher.appendChild(img_f)
+
+            // div f_btn (div_contador/div_divisao_contador/div_mulher/div_f_btn)
+            var f_btn = document.createElement("div")
+            div_mulher.appendChild(f_btn)
+
+            // add btn mulher
+            var add_btn_f = document.createElement("button")
+            var img_add_f = document.createElement("img")
+            img_add_f.src = "/image/btn-plus.png"
+            add_btn_f.id = "add_btn_f"
+            add_btn_f.setAttribute("onclick","addMulher()")
+            f_btn.appendChild(add_btn_f)
+            add_btn_f.appendChild(img_add_f)
+
+            // remove btn mulher
+            var remove_btn_f = document.createElement("button")
+            var img_remove_f = document.createElement("img")
+            img_remove_f.src = "/image/btn-minus.png"
+            remove_btn_f.id = "remove_btn_f"
+            remove_btn_f.setAttribute("onclick", "removeMulher()")
+            f_btn.appendChild(remove_btn_f)
+            remove_btn_f.appendChild(img_remove_f)
+
+            // titulo_f
+            var titulo_f = document.createElement("h3")
+            titulo_f.textContent = "Mulher"
+            div_mulher.appendChild(titulo_f)
+
+            // contador mulher
+            var contador_f = document.createElement("p")
+            contador_f.textContent = "0"
+            contador_f.id = "contador_f"
+            div_mulher.appendChild(contador_f)
 
 
-            // Style dos elementos -----------------------------------------------------------------
+            // Style dos elementos -------------------------------------------------------------------
 
-        })
+            // div principal
+            div_contador.style.border = "2px solid #000000"
+            div_contador.style.borderRadius = "10px"
+            div_contador.style.textAlign = "center"
+            div_contador.style.margin = "0 auto"
+            div_contador.style.width = "40rem"
+            
+            // botão reset
+            btn_reset.style.position = "absolute"
+            btn_reset.style.marginLeft = "15rem"
+            btn_reset.style.marginTop = "1rem"
+            btn_reset.style.borderRadius = "6px"
+            img_reset.style.width = "2rem"
+            img_reset.style.heigt = "2rem"
 
-        
+            // h3 contador
+            contador.style.border = "2px solid #000000"
+            contador.style.borderRadius = "5px"
+            contador.style.width = "6rem"
+            contador.style.height = "2rem"
+            contador.style.margin = "auto"
+
+            // div divisão contador
+            div_divisao_contador.style.display = "flex"
+            div_divisao_contador.style.flexDirection = "row"
+            div_divisao_contador.style.alignItems = "center"
+            div_divisao_contador.style.justifyContent = "space-between"
+            div_divisao_contador.style.padding = "5rem"
+
+            // img Homem
+            img_m.style.width = "10rem"
+
+            // img Mulher
+            img_f.style.width = "10rem"
+
+            // div m_btn
+            m_btn.style.display = "flex"
+            m_btn.style.flexDirection = "row"
+            m_btn.style.alignItems = "center"
+            m_btn.style.justifyContent = "space-between"
+            m_btn.style.padding = "1rem"
+
+            // contador homem
+            contador_m.style.border = "2px solid #000000"
+            contador_m.style.borderRadius = "5px"
+            contador_m.style.width = "4rem"
+            contador_m.style.height = "1,5rem"
+            contador_m.style.margin = "auto"
+            contador_m.style.padding = "5px"
+
+
+            // add btn homem
+            img_add_m.style.width = "2rem"
+
+            // remove btn homem
+            img_remove_m.style.width = "2rem"
+
+            // div f_btn
+            f_btn.style.display = "flex"
+            f_btn.style.flexDirection = "row"
+            f_btn.style.alignItems = "center"
+            f_btn.style.justifyContent = "space-between"
+            f_btn.style.padding = "1rem"
+
+            // contador homem
+            contador_f.style.border = "2px solid #000000"
+            contador_f.style.borderRadius = "5px"
+            contador_f.style.width = "4rem"
+            contador_f.style.height = "1,5rem"
+            contador_f.style.margin = "auto"
+            contador_f.style.padding = "5px"
+
+            // add btn mulher
+            img_add_f.style.width = "2rem"
+
+            // remove btn mulher
+            img_remove_f.style.width = "2rem"
+
+            // ---------------------------------------------------------------------------------------
+            
+        }) 
+
     </script>
 </head>
 <body>
+
     <p><a href="Quinta-Semana.html">Voltar</a></p>
     <div id="div_contador">
         
     </div>
 
-
-    <!-- Referência para criação em JS -->
-    <!-- 
-        <div class="div_contador">
-            <button id="reset">Reiniciar</button>
-            <h1>Total</h1>
-            <p id="total">0</p>
-            <div class="divisao_contador">
-                <div class="contador_homem">
-
-                </div>
-                <div class="contador_mulher">
-
-                </div>
-            </div>
-        </div> 
-    -->
-
-
-    
 </body>
 </html>
