@@ -123,16 +123,18 @@
             var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
             console.log("dentro da função CADASTRAR()"+ opcao["id"])
 
-            // atributos gerais
-            aluno.setNome(document.getElementById("nome").value)
-            aluno.setEmail(document.getElementById("email").value)
-            aluno.setData(document.getElementById("data").value)
-            aluno.setTelefone(document.getElementById("telefone").value)
-            aluno.setCelular(document.getElementById("celular").value)
-            aluno.setMatricula(document.getElementById("matricula").value)
+            
 
             if(opcao["id"] == "aluno"){
                 const aluno = new Aluno()
+
+                // atributos gerais
+                aluno.setNome(document.getElementById("nome").value)
+                aluno.setEmail(document.getElementById("email").value)
+                aluno.setData(document.getElementById("data").value)
+                aluno.setTelefone(document.getElementById("telefone").value)
+                aluno.setCelular(document.getElementById("celular").value)
+                aluno.setMatricula(document.getElementById("matricula").value)
                 // atributos exclusivos
                 aluno.setCurso(document.getElementById("curso").value)
 
@@ -141,6 +143,13 @@
             }
             else if(opcao["id"] == "professor"){
                 const professor = new Professor()
+                // atributos gerais
+                professor.setNome(document.getElementById("nome").value)
+                professor.setEmail(document.getElementById("email").value)
+                professor.setData(document.getElementById("data").value)
+                professor.setTelefone(document.getElementById("telefone").value)
+                professor.setCelular(document.getElementById("celular").value)
+                professor.setMatricula(document.getElementById("matricula").value)
                 // atributos exclusivos
                 professor.setArea = document.getElementById("area").value
                 professor.setLattes = document.getElementById("lattes").value
@@ -222,9 +231,7 @@
             location.reload()
         }
 
-        var pro = new Professor();
-        pro.setNome("GILSON")
-        console.log("teste: "+ pro.getNome())
+        
     </script>
 
     <style>
