@@ -6,17 +6,48 @@
     <title>Exercicio 1</title>
 
     <script>
-        addEventListener("DOMContentLoaded",()=>{})
+        addEventListener("DOMContentLoaded",()=>{
+            addEventListener("change", function(){
+                var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
+                console.log("dentro da função ADDEVENTLISTENER"+opcao["id"])
+                if(opcao["id"] == "aluno"){
+                    // Exibir (matricula, curso)
+                    document.getElementById("label_matricula").style.visibility = "visible"
+                    document.getElementById("matricula").style.visibility = "visible"
+                    document.getElementById("label_curso").style.visibility = "visible"
+                    document.getElementById("curso").style.visibility = "visible"
+                    // Ocultar (area, lattes)
+                    document.getElementById("label_area").style.visibility = "hidden"
+                    document.getElementById("area").style.visibility = "hidden"
+                    document.getElementById("label_lattes").style.visibility = "hidden"
+                    document.getElementById("lattes").style.visibility = "hidden"
+                }
+                else if(opcao["id"] == "professor"){
+                    // Exibir (area, matricula lattes)
+                    document.getElementById("label_area").style.visibility = "visible"
+                    document.getElementById("area").style.visibility = "visible"
+                    document.getElementById("label_matricula").style.visibility = "visible"
+                    document.getElementById("matricula").style.visibility = "visible"
+                    document.getElementById("label_lattes").style.visibility = "visible"
+                    document.getElementById("lattes").style.visibility = "visible"
+
+                    // Ocultar (curso)
+                    document.getElementById("label_curso").style.visibility = "hidden"
+                    document.getElementById("curso").style.visibility = "hidden"
+                }
+            })
+            
+        })
 
         function Pessoa(){
             var nome
             var email
-            var data_nasc
+            var data
             var telefone
             var celular
-            var curso_area
             var matricula
 
+            
             this.setNome = function (nome){
                 this.nome = nome
             }
@@ -47,18 +78,6 @@
             this.getCelular = function(){
                 return this.celular
             }
-            this.setCurso = function(curso){
-                this.curso = curso
-            }
-            this.getCurso = function(){
-                return this.curso
-            }
-            this.setArea_Atuacao = function(area_atuacao){
-                this.area_atuacao = area_atuacao
-            }
-            this.getArea_Atuacao = function(){
-                return this.area_atuacao
-            }
             this.setMatricula = function(matricula){
                 this.matricula = matricula
             }
@@ -78,23 +97,18 @@
             this.getCurso = function(){
                 return this.curso
             }
-
-            function CreateAluno(){
-
-            }
-
         }
 
         function Professor(){
             Pessoa.call(this)
-            var area_atuacao
+            var area
             var lattes
 
-            this.setArea_atuacao = function(areaAtuacao){
-                this.area_atuacao = areaAtuacao
+            this.setArea = function(area){
+                this.area = area
             }
-            this.getArea_atuacao = function(){
-                return this.area_atuacao
+            this.getArea = function(){
+                return this.area
             }
             this.setLattes = function(lattes){
                 this.lattes = lattes
@@ -102,26 +116,37 @@
             this.getLattes = function(){
                 return this.lattes
             }
-
-            function CreateProfessor(){
-
-            }
         }
 
         function Cadastrar(){
             console.log("Função Cadastrar")
             var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
-            console.log(opcao)
-            console.log(opcao["id"])
+            console.log("dentro da função CADASTRAR()"+ opcao["id"])
 
+            // atributos gerais
+            aluno.setNome(document.getElementById("nome").value)
+            aluno.setEmail(document.getElementById("email").value)
+            aluno.setData(document.getElementById("data").value)
+            aluno.setTelefone(document.getElementById("telefone").value)
+            aluno.setCelular(document.getElementById("celular").value)
+            aluno.setMatricula(document.getElementById("matricula").value)
 
             if(opcao["id"] == "aluno"){
-                var aluno = new Aluno()
+                const aluno = new Aluno()
+                // atributos exclusivos
+                aluno.setCurso(document.getElementById("curso").value)
+
                 document.getElementById("output").innerHTML = "Cadastro de Aluno feito!"
+                Exibir(aluno, opcao["id"])
             }
             else if(opcao["id"] == "professor"){
-                var professor = new Professor()
+                const professor = new Professor()
+                // atributos exclusivos
+                professor.setArea = document.getElementById("area").value
+                professor.setLattes = document.getElementById("lattes").value
+
                 document.getElementById("output").innerHTML = "Cadastro de Professor feito!"
+                Exibir(professor, opcao["id"])
             }
             else{
                 document.getElementById("output").innerHTML = "Aviso: nenhuma das opções selecionadas (Aluno/Professor)"
@@ -129,37 +154,84 @@
 
         }
 
+        function Exibir(cadastro, opcao){
+            console.log("dentro da função EXIBIR()"+opcao)
+            var div = document.getElementById("div_exibir")
+            var paragrafo = document.createElement("p")
 
-        addEventListener("change", function(){
-            var opcao = document.querySelector(`input[type="radio"][name="tipo"]:checked`)
-            console.log(opcao["id"])
-            var label = document.createElement("label")
-            var input = document.createElement("input")
-            label.setAttribute("id", "elemento_radio")
-            input.setAttribute("id", "elemento_radio")
+            var nome = document.createElement("p")
+            var email = document.createElement("p")
+            var data = document.createElement("p")
+            var telefone = document.createElement("p")
+            var celular = document.createElement("p")
+            var matricula = document.createElement("p")
 
-            if(opcao["id"] == "aluno"){
-                
-                
-                // Exibir (matricula, curso)
-                label.textContent = `Curso`
-                input.textContent = `<input id="curso" type="text" >`
-                document.getElementById("cadastro_radio").appendChild(label)
-                // label.textContent = `<label id="label_matricula" for="" >Matrícula</label>`
-                // input.textContent = `<input id="matricula" type="text" >`
-                // document.getElementById("cadastro_radio").appendChild(label, input)
+            nome.textContent = `Nome: ${cadastro.getNome()}`
+            email.textContent = `E-mail: ${cadastro.getEmail()}`
+            data.textContent = `Data: ${cadastro.getData()}`
+            telefone.textContent = `Telefone: ${cadastro.getTelefone()}`
+            celular.textContent = `Celular: ${cadastro.getCelular()}`
+            matricula.textContent = `Matricula: ${cadastro.getMatricula()}`
 
-                // Ocultar (area, lattes)
-            
+
+            if(opcao == "aluno"){
+                var curso = document.createElement("p")
+                curso.textContent = `Curso: ${cadastro.getCurso()}`
+
+                console.log(nome, email, data, telefone, celular, matricula, curso)
+
+                div.appendChild(nome)        
+                div.appendChild(email)        
+                div.appendChild(data)         
+                div.appendChild(telefone)          
+                div.appendChild(celular)              
+                div.appendChild(matricula)
+                div.appendChild(curso)
+
             }
-            else if(opcao["id"] == "professor"){
-                // Exibir (area, matricula lattes)
+            else if(opcao == "professor"){
+                var area = document.createElement("p")
+                var lattes = document.createElement("p")
+                area.tetContent = `Área de atuação: ${cadastro.getArea()}`
+                lattes.textContent = `Lattes: ${cadastro.getLattes()}`
 
-                // Ocultar (curso)
+                console.log(nome, email, data, telefone, celular, matricula, area, lattes)
+
+                div.appendChild(nome)        
+                div.appendChild(email)        
+                div.appendChild(data)         
+                div.appendChild(telefone)          
+                div.appendChild(celular)              
+                div.appendChild(matricula)
+                div.appendChild(area)
+                div.appendChild(lattes)
+
+            }
+            else{
+                div.appendChild(nome)        
+                div.appendChild(email)        
+                div.appendChild(data)         
+                div.appendChild(telefone)          
+                div.appendChild(celular)              
+                div.appendChild(matricula)
             }
             
-        })
+        }
+
+        function Redefinir(){
+            location.reload()
+        }
+
+        var pro = new Professor();
+        pro.setNome("GILSON")
+        console.log("teste: "+ pro.getNome())
     </script>
+
+    <style>
+        .cadastro_radio{
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
 
@@ -183,23 +255,28 @@
         <label for="">Aluno</label>
 
         <div class="cadastro_radio">
-            <!-- <label id="label_curso" for="" >Curso</label>
-            <input id="curso" type="text" >
-            <label id="label_area" for="" >Area</label>
-            <input id="area" type="text" >
             <label id="label_matricula" for="" >Matrícula</label>
             <input id="matricula" type="text" >
+            <label id="label_curso" for="" >Curso</label>
+            <input id="curso" type="text" >
+            <br>
+            <label id="label_area" for="" >Area atuação</label>
+            <input id="area" type="text" >
             <label id="label_lattes" for="" >Lattes</label>
             <input id="lattes" type="text" >
-            <br> -->
+            <br>
             
         </div>
         <br><br>
         
     </form>
     <button onclick="Cadastrar()">Enviar</button>
-    <button>Redefinir</button>
+    <button onclick="Redefinir()">Redefinir</button>
     <p id="output"></p>
+
+    <div id="div_exibir">
+
+    </div>
 
     
 </body>
