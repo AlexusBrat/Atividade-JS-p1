@@ -151,8 +151,8 @@
                 professor.setCelular(document.getElementById("celular").value)
                 professor.setMatricula(document.getElementById("matricula").value)
                 // atributos exclusivos
-                professor.setArea = document.getElementById("area").value
-                professor.setLattes = document.getElementById("lattes").value
+                professor.setArea(document.getElementById("area").value) 
+                professor.setLattes(document.getElementById("lattes").value)
 
                 document.getElementById("output").innerHTML = "Cadastro de Professor feito!"
                 Exibir(professor, opcao["id"])
