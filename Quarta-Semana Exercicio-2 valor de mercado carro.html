@@ -9,6 +9,7 @@
         .formulario {
             background-color: #bbbbbb;
             width: 20rem;
+            height: 25rem;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -17,10 +18,10 @@
             border-radius: 10px;
         }
         .exibicao {
-            /* visibility: hidden; */
+            visibility: hidden;
             background-color: #bbbbbb;
             width: 20rem;
-            margin: 0 auto;
+            margin: 5px auto;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -78,7 +79,7 @@
 
             this.ExibirCarro = function (carro){
                 var div = document.getElementById("exibicao")
-                // document.getElementById("exibicao").style.visibility = "visible"
+                document.getElementById("exibicao").style.visibility = "visible"
 
                 var marca = document.createElement("p")
                 var modelo = document.createElement("p")
@@ -89,13 +90,9 @@
                 var anoUtilizado = document.createElement("p")
                 var valorMercado = document.createElement("p")
 
-                console.log("teste:")
-                console.log(carro.getMarca())
-                console.log(carro.getModelo())
-                console.log(carro.getAno())
-                console.log(carro.getCor())
-                console.log(carro.getKm())
-                console.log(carro.getValorFipe())
+                cor.style.backgroundColor = `${carro.getCor()}`
+                cor.style.color = `${carro.getCor()}`
+                cor.style.border = `1px solid #000000`
 
                 marca.textContent = `Marca: ${carro.getMarca()}`
                 modelo.textContent = `Modelo: ${carro.getModelo()}`
@@ -104,7 +101,7 @@
                 km.textContent = `Kilometragem: ${carro.getKm()}`
                 valorFipe.textContent = `Valor tabela fipe: ${carro.getValorFipe()}`
                 anoUtilizado.textContent = `Anos de utilização: ${carro.AnosUtilizacao()}`
-                valorMercado.textContent = `Valor de Mercado: ${carro.ValorMercado()}`
+                valorMercado.textContent = `Valor de Mercado: ${carro.ValorMercado().toFixed(2)}`
 
                 div.appendChild(marca)
                 div.appendChild(modelo)
@@ -119,6 +116,7 @@
 
             // deve retornar quantos anos de utilização o veículo possui
             this.AnosUtilizacao = function (){
+                console.log("Tempo de Uso")
                 let data = new Date()
                 let anoAtual = data.getFullYear()
                 var diferença = anoAtual - this.getAno()
@@ -135,19 +133,27 @@
             // carros que rodam entre 30.000 e 50.000 km/ano — 100% do valor_fipe
             // carros que rodam mais que 50.000 km/ano — 90% do valor_fipe
             this.ValorMercado = function (){
+                console.log("ValorMercado")
                 var km = this.getKm()
                 var valorFipe = this.getValorFipe()
+
+                console.log(km, valorFipe)
                 var resultado
                 if(km < 30000){
                     resultado = valorFipe * 1.1
+                    console.log(resultado)
                     return resultado
                 }
                 else if(km >= 30000 && km < 50000){
                     resultado = valorFipe * 1.0
+                    console.log(resultado)
+
                     return resultado
                 }
                 else if(km >= 50000){
                     resultado = valorFipe * 0.9
+                    console.log(resultado)
+
                     return resultado
                 }
             }
@@ -156,12 +162,6 @@
         function Cadastrar(){
             var carro = new Carro()
 
-            console.log(document.getElementById("marca").value)
-            console.log(document.getElementById("modelo").value)
-            console.log(document.getElementById("ano").value)
-            console.log(document.getElementById("cor").value)
-            console.log(document.getElementById("km").value)
-            console.log(document.getElementById("valorFipe").value)
 
             carro.setMarca(document.getElementById("marca").value)
             carro.setModelo(document.getElementById("modelo").value)
@@ -175,7 +175,7 @@
 
 </head>
 <body>
-    <p><a href="Quinta-Semana.html">Voltar</a></p>
+    <p><a href="Quarta-Semana.html">Voltar</a></p>
     <br>
     <div class="formulario">
         <h1>Informe o veículo</h1>
@@ -196,7 +196,7 @@
         <button onclick="Cadastrar()">Enviar</button>
     </div>
 
-    <div class="exibicao">
+    <div id="exibicao" class="exibicao">
 
     </div>
 </body>
