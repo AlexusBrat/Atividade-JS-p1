@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            // Criação dos elementos ---------------------------------------------------
+            
+            // Div Principal (Div Principal)
+            let div_corpo = document.getElementById("calculadora")
+            div_corpo.className = "calculadora"
+
+            // Div Exibir_Resultado(Principal/Exibir_Resultado)
+            let div_exibir_resultado = document.createElement("div")
+            div_exibir_resultado.id = "div_exibir_resultado"
+            div_exibir_resultado.className = "div_exibir_resultado"
+            div_corpo.appendChild(div_exibir_resultado)
+
+            // Numero_Exibir
+            let n_exibir = document.createElement("h1");
+            n_exibir.textContent = "0"
+            div_exibir_resultado.appendChild(n_exibir)
+
+            // Div Botões(Principal/Botões)
+            let div_btn_calculadora = document.createElement("div")
+            div_btn_calculadora.id = "div_btn_calculadora"
+            div_btn_calculadora.className = "btn_calculadora"
+            div_corpo.appendChild(div_btn_calculadora)
+            
+            // btn AC (função)
+            let btn_AC = document.createElement("button")
+            btn_AC.textContent = "AC"
+            btn_AC.id = "btn_AC"
+            btn_AC.className = "btn_funcao"
+            div_btn_calculadora.appendChild(btn_AC)
+
+            // btn +/- (função)
+            let btn_mais_menos = document.createElement("button")
+            btn_mais_menos.textContent = "+/-"
+            btn_mais_menos.id = "btn_mais_menos"
+            btn_mais_menos.className = "btn_funcao"
+            div_btn_calculadora.appendChild(btn_mais_menos)
+            
+            // btn % (função)
+            let btn_porcentagem = document.createElement("button")
+            btn_porcentagem.textContent = "%"
+            btn_porcentagem.id = "btn_porcentagem"
+            btn_porcentagem.className = "btn_funcao"
+            div_btn_calculadora.appendChild(btn_porcentagem)
+
+            // btn ÷ (operação)
+            let btn_dividir = document.createElement("button")
+            btn_dividir.textContent = "÷"
+            btn_dividir.id = "btn_divisao"
+            btn_dividir.className = "btn_operacao"
+            div_btn_calculadora.appendChild(btn_dividir)
+
+            // btn 7
+            let btn_7 = document.createElement("button")
+            btn_7.textContent = "7"
+            div_btn_calculadora.appendChild(btn_7)
+
+            // btn 8
+            let btn_8 = document.createElement("button")
+            btn_8.textContent = "8"
+            div_btn_calculadora.appendChild(btn_8)
+
+            // btn 9
+            let btn_9 = document.createElement("button")
+            btn_9.textContent = "9"
+            div_btn_calculadora.appendChild(btn_9)
+
+            // btn X (operação)
+            let btn_multiplicar = document.createElement("button")
+            btn_multiplicar.textContent = "X"
+            btn_multiplicar.id = "btn_multiplicar"
+            btn_multiplicar.className = "btn_operacao"
+            div_btn_calculadora.appendChild(btn_multiplicar)
+
+            // btn 4
+            let btn_4 = document.createElement("button")
+            btn_4.textContent = "4"
+            div_btn_calculadora.appendChild(btn_4)
+
+            // btn 5
+            let btn_5 = document.createElement("button")
+            btn_5.textContent = "5"
+            div_btn_calculadora.appendChild(btn_5)
+
+            // btn 6
+            let btn_6 = document.createElement("button")
+            btn_6.textContent = "6"
+            div_btn_calculadora.appendChild(btn_6)
+
+            // btn - (operação)
+            let btn_subtrair = document.createElement("button")
+            btn_subtrair.textContent = "-"
+            btn_subtrair.id  = "btn_subtrair"
+            btn_subtrair.className = "btn_operacao"
+            div_btn_calculadora.appendChild(btn_subtrair)
+
+            // btn 1 
+            let btn_1 = document.createElement("button")
+            btn_1.textContent = "1"
+            div_btn_calculadora.appendChild(btn_1)
+
+            // btn 2
+            let btn_2 = document.createElement("button")
+            btn_2.textContent = "2"
+            div_btn_calculadora.appendChild(btn_2)
+
+            // btn 3
+            let btn_3 = document.createElement("button")
+            btn_3.textContent = "3"
+            div_btn_calculadora.appendChild(btn_3)
+
+            // btn + (operação)
+            let btn_somar = document.createElement("button")
+            btn_somar.textContent = "+"
+            btn_somar.id = "btn_somar"
+            btn_somar.className = "btn_operacao"
+            div_btn_calculadora.appendChild(btn_somar)
+
+            // btn 0
+            let btn_0 = document.createElement("button")
+            btn_0.textContent = "0"
+            btn_0.id = "btn_0"
+            btn_0.className = "btn_0"
+            div_btn_calculadora.appendChild(btn_0)
+            
+            // btn , (casa decimal)
+            let btn_virgula = document.createElement("button")
+            btn_virgula.textContent = ","
+            btn_virgula.id = "btn_virgula"
+            div_btn_calculadora.appendChild(btn_virgula)
+
+            // btn = (operação)
+            let btn_resultado = document.createElement("button")
+            btn_resultado.textContent = "="
+            btn_resultado.id = "btn_resultado"
+            btn_resultado.className = "btn_operacao"
+            div_btn_calculadora.appendChild(btn_resultado)
+
+        })
+    </script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            color: #ffffff;
+        }
+        .calculadora{
+            margin: auto;
+            height: 33rem;
+            width: 20rem;
+            text-align: center;
+            background-color: #000000;
+            border: 1rem solid #4d4d4d;
+            border-radius: 50px;
+        }
+        .div_exibir_resultado{
+            text-align: right;
+            height: 60px;
+            width: 17rem;
+            margin-top: 12px;
+        }
+        .btn_calculadora{
+            margin: 0 44px;
+            display: grid;
+            grid-template-columns: 25px 25px 25px 25px;
+            gap: 36px;
+        }
+
+        /* Botões comuns */
+        button{
+            height: 50px;
+            width: 50px;
+            background-color: #4d4d4d;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+        }
+        button:hover{
+            background-color: #999999;
+        }
+
+        /* btn 0 */
+        .btn_0{
+            /* pode usar esses dois atributos para manipular o quanto o item ocupa no grid */
+            /* pode usar o "span" para indicar se ele ocupa mais de uma posição (se usar no column ocupa o espaço seguinte na coluna, se usar no row ocupa a linha seguinte a baixo) */
+            width: 112px;
+            grid-column: 1 / span 2;
+            grid-row: 5;
+        }
+        /* Botões de funções */
+        .btn_funcao{
+            background-color: #a5a5a5;
+            color: #000000;
+        }
+        .btn_funcao:hover{
+            background-color: #d5d5d5;
+
+        }
+        /* Botões de operações */
+        .btn_operacao{
+            background-color: #ff9902;
+        }
+        .btn_operacao:hover{
+            background-color: #ffbb00;
+        }
+    </style>
+
+</head>
+<body>
+    <p><a href="Sexta-Semana.html">Voltar</a></p>
+    <br>
+    <div id="calculadora">
+
+    </div>
+
+
+</body>
+</html>
