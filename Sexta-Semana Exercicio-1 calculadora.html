@@ -1,14 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
 
     <script>
-        document.addEventListener("DOMContentLoaded", ()=>{
+
+        // para realizar operações, armazene o nº do visor em um vetor
+        // se a quantidade de índices do vetor for = 2
+        //      executa a equação ao apertar =
+        // se não
+        //      espera a inserção de mais um número
+        //      apertar = não faz nada e retorna 0
+
+        // outra maneira vetor de nº e vetor de operação, 
+
+        // Operações Matemáticas
+        function somar() {
+
+        }
+        function subtrair() {
+
+        }
+        function multiplicar() {
+
+        }
+        function dividir() {
+
+        }
+
+        // Funções da calculadora
+        function AC() {
+            var visor = document.getElementById("n_exibir").innerHTML = "0"
+        }
+        function mais_menos() {
+
+        }
+        function porcentagem() {
+
+        }
+        function virgula() {
+
+        }
+        function atualizar_visor(numero) {
+            var visor = document.getElementById("n_exibir").textContent
+            console.log(visor)
+            if (visor.length < 14) {
+                if (visor == "0") { // verifica se o primeiro Nº é zero
+                    if (numero == ",") { // se é vírgula quando o primero Nº é zero
+                        visor += numero
+                        document.getElementById("n_exibir").innerHTML = visor
+                    }
+                    else if (numero != ",") { // se não é vírgula quando o primeiro Nº é zero
+                        visor = numero
+                        document.getElementById("n_exibir").innerHTML = visor
+                    }
+                }
+                else { // Não é zero
+                    if (numero == ",") { // se é vírgula quando ja possui numero digitado
+                        if (visor.includes(",")) { // se possui vírgula existente, impede de colocar mais uma
+                            console.log("possui vírgula, nada ocorre")
+                        }
+                        else { // se não possui vírgula existente, adiciona mais uma
+                            visor += numero
+                            document.getElementById("n_exibir").innerHTML = visor
+                        }
+                    }
+                    else if (numero != ",") { // se não é Nº após ja ter um Nº digitado
+                        visor += numero
+                        document.getElementById("n_exibir").innerHTML = visor
+                    }
+                }
+            }
+            else {
+                console.log("Quantidade máxima atingida")
+            }
+
+
+        }
+
+        // detecção de botões
+        window.onload = function () {
+            var todos_btn = document.getElementsByTagName("button");
+            console.log(todos_btn.length)
+
+            for (var i = 0; i < todos_btn.length; i++) {
+                console.log(this.textContent)
+                todos_btn[i].addEventListener("click", function () {
+                    if (this.textContent == "AC") {
+                        AC()
+                    }
+                    else if (this.textContent == "+/-") {
+
+                    }
+                    else if (this.textContent == "%") { }
+                    else if (this.textContent == "÷") { }
+                    else if (this.textContent == "x") { }
+                    else if (this.textContent == "-") { }
+                    else if (this.textContent == "+") { }
+                    else if (this.textContent == "=") { }
+                    else {
+                        atualizar_visor(this.textContent)
+                    }
+                });
+            }
+        }
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
             // Criação dos elementos ---------------------------------------------------
-            
+
             // Div Principal (Div Principal)
             let div_corpo = document.getElementById("calculadora")
             div_corpo.className = "calculadora"
@@ -22,6 +126,7 @@
             // Numero_Exibir
             let n_exibir = document.createElement("h1");
             n_exibir.textContent = "0"
+            n_exibir.id = "n_exibir"
             div_exibir_resultado.appendChild(n_exibir)
 
             // Div Botões(Principal/Botões)
@@ -29,7 +134,7 @@
             div_btn_calculadora.id = "div_btn_calculadora"
             div_btn_calculadora.className = "btn_calculadora"
             div_corpo.appendChild(div_btn_calculadora)
-            
+
             // btn AC (função)
             let btn_AC = document.createElement("button")
             btn_AC.textContent = "AC"
@@ -43,7 +148,7 @@
             btn_mais_menos.id = "btn_mais_menos"
             btn_mais_menos.className = "btn_funcao"
             div_btn_calculadora.appendChild(btn_mais_menos)
-            
+
             // btn % (função)
             let btn_porcentagem = document.createElement("button")
             btn_porcentagem.textContent = "%"
@@ -75,7 +180,7 @@
 
             // btn X (operação)
             let btn_multiplicar = document.createElement("button")
-            btn_multiplicar.textContent = "X"
+            btn_multiplicar.textContent = "x"
             btn_multiplicar.id = "btn_multiplicar"
             btn_multiplicar.className = "btn_operacao"
             div_btn_calculadora.appendChild(btn_multiplicar)
@@ -98,7 +203,7 @@
             // btn - (operação)
             let btn_subtrair = document.createElement("button")
             btn_subtrair.textContent = "-"
-            btn_subtrair.id  = "btn_subtrair"
+            btn_subtrair.id = "btn_subtrair"
             btn_subtrair.className = "btn_operacao"
             div_btn_calculadora.appendChild(btn_subtrair)
 
@@ -130,7 +235,7 @@
             btn_0.id = "btn_0"
             btn_0.className = "btn_0"
             div_btn_calculadora.appendChild(btn_0)
-            
+
             // btn , (casa decimal)
             let btn_virgula = document.createElement("button")
             btn_virgula.textContent = ","
@@ -148,15 +253,17 @@
     </script>
 
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
-        h1{
+
+        h1 {
             color: #ffffff;
         }
-        .calculadora{
+
+        .calculadora {
             margin: auto;
             height: 33rem;
             width: 20rem;
@@ -165,13 +272,15 @@
             border: 1rem solid #4d4d4d;
             border-radius: 50px;
         }
-        .div_exibir_resultado{
+
+        .div_exibir_resultado {
             text-align: right;
             height: 60px;
             width: 17rem;
             margin-top: 12px;
         }
-        .btn_calculadora{
+
+        .btn_calculadora {
             margin: 0 44px;
             display: grid;
             grid-template-columns: 25px 25px 25px 25px;
@@ -179,45 +288,52 @@
         }
 
         /* Botões comuns */
-        button{
+        button {
             height: 50px;
             width: 50px;
             background-color: #4d4d4d;
             color: #ffffff;
             border: none;
-            border-radius: 20px;
+            border-radius: 50px;
+            font-size: larger;
         }
-        button:hover{
+
+        button:hover {
             background-color: #999999;
         }
 
         /* btn 0 */
-        .btn_0{
+        .btn_0 {
             /* pode usar esses dois atributos para manipular o quanto o item ocupa no grid */
             /* pode usar o "span" para indicar se ele ocupa mais de uma posição (se usar no column ocupa o espaço seguinte na coluna, se usar no row ocupa a linha seguinte a baixo) */
             width: 112px;
             grid-column: 1 / span 2;
             grid-row: 5;
         }
+
         /* Botões de funções */
-        .btn_funcao{
+        .btn_funcao {
             background-color: #a5a5a5;
             color: #000000;
         }
-        .btn_funcao:hover{
+
+        .btn_funcao:hover {
             background-color: #d5d5d5;
 
         }
+
         /* Botões de operações */
-        .btn_operacao{
+        .btn_operacao {
             background-color: #ff9902;
         }
-        .btn_operacao:hover{
+
+        .btn_operacao:hover {
             background-color: #ffbb00;
         }
     </style>
 
 </head>
+
 <body>
     <p><a href="Sexta-Semana.html">Voltar</a></p>
     <br>
@@ -227,4 +343,5 @@
 
 
 </body>
+
 </html>
