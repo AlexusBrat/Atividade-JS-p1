@@ -8,46 +8,224 @@
 
     <script>
 
-        // para realizar operações, armazene o nº do visor em um vetor
-        // se a quantidade de índices do vetor for = 2
-        //      executa a equação ao apertar =
-        // se não
-        //      espera a inserção de mais um número
-        //      apertar = não faz nada e retorna 0
+        // funções para tratamento
+        function str_com_virgula(visor) {
+            // faz a troca da (,)vírgula por um (.)ponto.
 
-        // outra maneira vetor de nº e vetor de operação, 
+            visor = visor.replaceAll(",", ".")
+            return visor // retorna valor com (.)
+        }
+
+        function str_com_ponto(visor) {
+            // faz a troca do (.)ponto por uma (,)vírgula.
+
+            visor = visor.replaceAll(".", ",")
+            return visor //retorna valor com (,)
+        }
+
+        function separar_numero(equacao){
+            const numeros = []
+            let atualNumero = ""
+            for(let i = 0; i <= equacao.length; i++){ // percorre todos os valores para separar os Nº
+                if(!isNaN(equacao[i]) || equacao[i] == "."){ // se for número ou (.)
+                    atualNumero += equacao[i]
+                }
+                else{ // se não for número, acabou o numero atual
+                    numeros.push(parseFloat(atualNumero))
+                    atualNumero = ""
+                }
+            }
+            return numeros
+        }
+
+        function separar_operador(equacao){
+            const operadores = []
+            for(let i = 0; i < equacao.length; i++){ // percorre todos os valores para separar os operadores
+                if(isNaN(equacao[i]) && equacao[i] != "."){ // se não for número e não for (.)
+                    operadores.push(equacao[i])
+                }
+            }
+            return operadores
+        }
 
         // Operações Matemáticas
         function somar() {
-
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            if(equacao == "0"){
+                equacao = visor + "+"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else if (visor.includes("-")) {
+                equacao += `(${visor})+`
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else{
+                equacao += visor + "+"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
         }
-        function subtrair() {
 
+        function subtrair(){
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            if(equacao == "0"){
+                equacao = visor + "-"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else if (visor.includes("-")) {
+                equacao += `(${visor})-`
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else{
+                equacao += visor + "-"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
         }
-        function multiplicar() {
 
+        function multiplicar(){
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            if(equacao == "0"){
+                equacao = visor + "x"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else if (visor.includes("x")) {
+                equacao += `(${visor})x`
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else{
+                equacao += visor + "x"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
         }
-        function dividir() {
 
+        function dividir(){
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            if(equacao == "0"){
+                equacao = visor + "÷"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else if (visor.includes("÷")) {
+                equacao += `(${visor})÷`
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else{
+                equacao += visor + "÷"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
         }
 
         // Funções da calculadora
+        function resultado() {
+            let resultado
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            equacao += visor
+            equacao = str_com_virgula(equacao)
+            console.log(equacao)
+            
+            numeros = separar_numero(equacao)
+            operadores = separar_operador(equacao)
+            console.log(numeros)
+            console.log(operadores)
+
+            for(i = 0; i< numeros.length; i++) {
+                if(i == 0){
+                    resultado = numeros[i]
+                }
+                else{
+                    if(operadores[i-1] == "+"){
+                        resultado = resultado + numeros[i]
+                    }
+                    else if(operadores[i-1] == "-"){
+                        resultado = resultado - numeros[i]
+                    }
+                    else if(operadores[i-1] == "x"){
+                        resultado = resultado * numeros[i]
+                    }
+                    else if(operadores[i-1] == "÷"){
+                        resultado = resultado / numeros[i]
+                    }
+                    else if(operadores[i-1] == "%"){
+                        resultado = resultado * (numeros[i] / 100)
+                    }
+                }
+            }
+            document.getElementById("n_equacao").innerHTML = equacao          
+            document.getElementById("n_exibir").innerHTML = `=${resultado}`
+        }
+
         function AC() {
-            var visor = document.getElementById("n_exibir").innerHTML = "0"
+            document.getElementById("n_exibir").innerHTML = "0"
+            document.getElementById("n_equacao").innerHTML = "0"
+            memoria = []
+            console.log("memoria apagada")
         }
+
         function mais_menos() {
+            var visor = document.getElementById("n_exibir").textContent
 
+            if (visor.includes(",")) { // possui vírgula
+                visor = str_com_virgula(visor)
+                visor = parseFloat(visor) // transforma a string em float.
+                visor = visor * (-1) // inverte o sinal
+                visor = `${visor}` // transforma float em string
+                visor = str_com_ponto(visor)
+                document.getElementById("n_exibir").innerHTML = visor
+            }
+            else {
+                visor = parseFloat(visor)
+                visor = visor * (-1)
+                document.getElementById("n_exibir").innerHTML = visor
+            }
+            console.log(visor)
         }
+
         function porcentagem() {
-
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+            if(equacao == "0"){
+                equacao = visor + "%"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else if (visor.includes("%")) {
+                equacao += `(${visor})%`
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
+            else{
+                equacao += visor + "%"
+                document.getElementById("n_equacao").innerHTML = equacao
+                document.getElementById("n_exibir").innerHTML = "0"
+            }
         }
-        function virgula() {
 
-        }
         function atualizar_visor(numero) {
             var visor = document.getElementById("n_exibir").textContent
-            console.log(visor)
-            if (visor.length < 14) {
+            if(visor.includes("=")){
+                AC()
+            }
+            var visor = document.getElementById("n_exibir").textContent
+            var equacao = document.getElementById("n_equacao").textContent
+
+            // atualizar o visor do número
+            if (visor.length < 20) {
+
                 if (visor == "0") { // verifica se o primeiro Nº é zero
                     if (numero == ",") { // se é vírgula quando o primero Nº é zero
                         visor += numero
@@ -60,10 +238,10 @@
                 }
                 else { // Não é zero
                     if (numero == ",") { // se é vírgula quando ja possui numero digitado
-                        if (visor.includes(",")) { // se possui vírgula existente, impede de colocar mais uma
-                            console.log("possui vírgula, nada ocorre")
+                        if(visor.includes(",")){
+                            console.log("possui vírgula, outra vírgula não poderá ser adicionada")
                         }
-                        else { // se não possui vírgula existente, adiciona mais uma
+                        else{
                             visor += numero
                             document.getElementById("n_exibir").innerHTML = visor
                         }
@@ -77,38 +255,45 @@
             else {
                 console.log("Quantidade máxima atingida")
             }
-
-
+            console.log(visor)
         }
 
         // detecção de botões
         window.onload = function () {
             var todos_btn = document.getElementsByTagName("button");
-            console.log(todos_btn.length)
 
             for (var i = 0; i < todos_btn.length; i++) {
-                console.log(this.textContent)
                 todos_btn[i].addEventListener("click", function () {
                     if (this.textContent == "AC") {
                         AC()
                     }
                     else if (this.textContent == "+/-") {
-
+                        mais_menos()
                     }
-                    else if (this.textContent == "%") { }
-                    else if (this.textContent == "÷") { }
-                    else if (this.textContent == "x") { }
-                    else if (this.textContent == "-") { }
-                    else if (this.textContent == "+") { }
-                    else if (this.textContent == "=") { }
+                    else if (this.textContent == "%") {
+                        porcentagem()
+                    }
+                    else if (this.textContent == "+"){
+                        somar()
+                    }
+                    else if (this.textContent == "-") {
+                        subtrair()
+                    }
+                    else if (this.textContent == "x") {
+                        multiplicar()
+                    }
+                    else if (this.textContent == "÷") {
+                        dividir()
+                    }
+                    else if (this.textContent == "=") {
+                        resultado()
+                    }
                     else {
                         atualizar_visor(this.textContent)
                     }
                 });
             }
         }
-
-
 
         document.addEventListener("DOMContentLoaded", () => {
             // Criação dos elementos ---------------------------------------------------
@@ -123,8 +308,14 @@
             div_exibir_resultado.className = "div_exibir_resultado"
             div_corpo.appendChild(div_exibir_resultado)
 
+            // Equação completa
+            let n_equacao = document.createElement("p")
+            n_equacao.textContent = "0"
+            n_equacao.id = "n_equacao"
+            div_exibir_resultado.appendChild(n_equacao)
+
             // Numero_Exibir
-            let n_exibir = document.createElement("h1");
+            let n_exibir = document.createElement("h1")
             n_exibir.textContent = "0"
             n_exibir.id = "n_exibir"
             div_exibir_resultado.appendChild(n_exibir)
@@ -262,10 +453,12 @@
         h1 {
             color: #ffffff;
         }
-
+        p{
+            color: #ffffff;
+        }
         .calculadora {
             margin: auto;
-            height: 33rem;
+            height: 30rem;
             width: 20rem;
             text-align: center;
             background-color: #000000;
@@ -275,16 +468,16 @@
 
         .div_exibir_resultado {
             text-align: right;
-            height: 60px;
+            height: 5rem;
             width: 17rem;
             margin-top: 12px;
         }
 
         .btn_calculadora {
-            margin: 0 44px;
+            margin: 0 50px;
             display: grid;
             grid-template-columns: 25px 25px 25px 25px;
-            gap: 36px;
+            gap: 32px;
         }
 
         /* Botões comuns */
@@ -306,7 +499,7 @@
         .btn_0 {
             /* pode usar esses dois atributos para manipular o quanto o item ocupa no grid */
             /* pode usar o "span" para indicar se ele ocupa mais de uma posição (se usar no column ocupa o espaço seguinte na coluna, se usar no row ocupa a linha seguinte a baixo) */
-            width: 112px;
+            width: 108px;
             grid-column: 1 / span 2;
             grid-row: 5;
         }
